@@ -1,4 +1,4 @@
-﻿namespace TMK.Screen.Main.ViewModels.Base
+﻿namespace TMK.Screen.ViewModels.Base
 {
     public abstract class TitledViewModel : ViewModel
     {

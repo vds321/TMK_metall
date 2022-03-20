@@ -1,4 +1,4 @@
-﻿using TMK.Screen.Main.ViewModels.Base;
+﻿using TMK.Screen.ViewModels.Base;
 
 namespace TMK.Screen.ViewModels
 {
@@ -7,6 +7,7 @@ namespace TMK.Screen.ViewModels
         public TubesViewModel()
         {
             Title = "Трубы";
+            OnPropertyChanged(nameof(Title));
         }
     }
 }

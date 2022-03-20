@@ -1,5 +1,4 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
-using TMK.Screen.Main.ViewModels;
 using TMK.Screen.ViewModels;
 
 namespace TMK.Service.Registrator

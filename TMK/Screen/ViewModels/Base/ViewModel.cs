@@ -4,7 +4,7 @@ using System.Runtime.CompilerServices;
 using System.Windows.Markup;
 using System.Xaml;
 
-namespace TMK.Screen.Main.ViewModels.Base
+namespace TMK.Screen.ViewModels.Base
 {
     public abstract class ViewModel : MarkupExtension, INotifyPropertyChanged
     {

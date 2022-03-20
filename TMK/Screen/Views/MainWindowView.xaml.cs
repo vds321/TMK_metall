@@ -1,6 +1,6 @@
 ﻿using System.Windows;
 
-namespace TMK.Views.Windows
+namespace TMK.Screen.Views
 {
     /// <summary>
     /// Логика взаимодействия для MainView.xaml

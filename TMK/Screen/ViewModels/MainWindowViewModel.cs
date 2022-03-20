@@ -2,7 +2,7 @@
 using Storage.Interface;
 using System.Windows.Input;
 using TMK.Infrastructure.Command.Base;
-using TMK.Screen.Main.ViewModels.Base;
+using TMK.Screen.ViewModels.Base;
 using TMK.Service.Interface;
 
 namespace TMK.Screen.ViewModels
@@ -46,12 +46,13 @@ namespace TMK.Screen.ViewModels
 
 
         /// <summary>Проверка возможности выполнения Показать раздел труб</summary>
-        private bool CanShowTubesViewCommandExecute() => true;
+        private bool CanShowTubesViewCommandExecute() => CurrentViewModel?.GetType() != typeof(TubesViewModel);
 
         /// <summary>Логика выполнения Показать раздел труб</summary>
         private void OnShowTubesViewCommandExecuted()
         {
-
+            CurrentViewModel = new TubesViewModel();
+            OnPropertyChanged(nameof(CurrentViewModel));
         }
 
 
