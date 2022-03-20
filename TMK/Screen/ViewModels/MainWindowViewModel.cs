@@ -51,7 +51,7 @@ namespace TMK.Screen.ViewModels
         /// <summary>Логика выполнения Показать раздел труб</summary>
         private void OnShowTubesViewCommandExecuted()
         {
-            CurrentViewModel = new TubesViewModel();
+            CurrentViewModel = new TubesViewModel(_UserDialog, _TubesRepository);
             OnPropertyChanged(nameof(CurrentViewModel));
         }
 
@@ -71,12 +71,13 @@ namespace TMK.Screen.ViewModels
 
 
         /// <summary>Проверка возможности выполнения Показать раздел пакетов</summary>
-        private bool CanShowBundlesViewCommandExecute() => true;
+        private bool CanShowBundlesViewCommandExecute() => CurrentViewModel?.GetType() != typeof(BundleViewModel);
 
         /// <summary>Логика выполнения Показать раздел пакетов</summary>
         private void OnShowBundlesViewCommandExecuted()
         {
-
+            CurrentViewModel = new BundleViewModel();
+            OnPropertyChanged(nameof(CurrentViewModel));
         }
 
 

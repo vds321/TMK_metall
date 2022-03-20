@@ -6,7 +6,7 @@ using System.Windows.Markup;
 
 namespace TMK.Infrastructure.Converters.Base
 {
-    internal abstract class ConverterBase : MarkupExtension, IValueConverter
+    public abstract class ConverterBase : MarkupExtension, IValueConverter
     {
         public override object ProvideValue(IServiceProvider sp) => this;
         #region Implementation of IValueConverter

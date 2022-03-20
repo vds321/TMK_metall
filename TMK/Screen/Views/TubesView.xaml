@@ -3,10 +3,70 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" mc:Ignorable="d"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:utils="clr-namespace:TMK.Utils"
              xmlns:vm="clr-namespace:TMK.Screen.ViewModels"
              d:DataContext="{d:DesignInstance vm:TubesViewModel}"
              d:DesignHeight="450" d:DesignWidth="800">
-    <Grid>
-            
-    </Grid>
+    <DockPanel>
+        <Grid DockPanel.Dock="Top"></Grid>
+        <StatusBar DockPanel.Dock="Bottom"></StatusBar>
+        <ListView Name="TubeListView" ItemsSource="{Binding TubeModelsCollection, UpdateSourceTrigger=PropertyChanged}" 
+                  ItemContainerStyle="{StaticResource ListViewItemStyle}"
+                  utils:GridViewSort.AutoSort="True" IsSynchronizedWithCurrentItem="True" SelectionMode="Single">
+            <ListView.View>
+                <GridView ColumnHeaderContainerStyle="{StaticResource GridViewColumnHeader}">
+                    <GridViewColumn Header="Ид" utils:GridViewSort.PropertyName="Id" Width="50">
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate>
+                                <Border Style="{StaticResource CellBorderStyle}">
+                                    <TextBlock Style="{StaticResource TextBlockStyle}" Text="{Binding Id}" Width="30"
+                                               Foreground="{Binding TubeTextColor, Converter={StaticResource ColorToBrushConverter}}"/>
+                                </Border>
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                    </GridViewColumn>
+                    <GridViewColumn Header="Номер" utils:GridViewSort.PropertyName="Number" Width="50">
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate>
+                                <Border Style="{StaticResource CellBorderStyle}">
+                                    <TextBlock Style="{StaticResource TextBlockStyle}" Text="{Binding Number}" Width="30"
+                                               Foreground="{Binding TubeTextColor, Converter={StaticResource ColorToBrushConverter}}"/>
+                                </Border>
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                    </GridViewColumn>
+                    <GridViewColumn Header="Качество" utils:GridViewSort.PropertyName="Quality" Width="85">
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate>
+                                <Border Style="{StaticResource CellBorderStyle}">
+                                    <TextBlock Style="{StaticResource TextBlockStyle}" Text="{Binding Quality, Converter={StaticResource BoolQualityToTextConverter}}" Width="85"
+                                               Foreground="{Binding TubeTextColor, Converter={StaticResource ColorToBrushConverter}}"/>
+                                </Border>
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                    </GridViewColumn>
+                    <GridViewColumn Header="Размер" utils:GridViewSort.PropertyName="Size" Width="75">
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate>
+                                <Border Style="{StaticResource CellBorderStyle}">
+                                    <TextBlock Style="{StaticResource TextBlockStyle}" Text="{Binding Size, StringFormat=F2}" Width="75"
+                                               Foreground="{Binding TubeTextColor, Converter={StaticResource ColorToBrushConverter}}"/>
+                                </Border>
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                    </GridViewColumn>
+                    <GridViewColumn Header="Вес" utils:GridViewSort.PropertyName="Weight" Width="75">
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate>
+                                <Border Style="{StaticResource CellBorderStyle}">
+                                    <TextBlock Style="{StaticResource TextBlockStyle}" Text="{Binding Weight, StringFormat=F2}" Width="75"
+                                               Foreground="{Binding TubeTextColor, Converter={StaticResource ColorToBrushConverter}}"/>
+                                </Border>
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                    </GridViewColumn>
+                </GridView>
+            </ListView.View>
+        </ListView>
+    </DockPanel>
 </UserControl>

@@ -8,25 +8,9 @@
     <DataTemplate DataType="{x:Type vm:TubesViewModel}">
         <views:PipesView DataContext="{Binding}"/>
     </DataTemplate>
-    <!--<DataTemplate DataType="{x:Type vm:TubesViewModel}">
-        <views: DataContext="{Binding}"/>
-    </DataTemplate>-->
-    <!--
-    <DataTemplate DataType="{x:Type vm:ManageCafeViewModel}">
-        <view:ManageCafeView DataContext="{Binding}"/>
+    
+    <DataTemplate DataType="{x:Type vm:BundleViewModel}">
+        <views:BundlesView DataContext="{Binding}"/>
     </DataTemplate>
     
-    <DataTemplate DataType="{x:Type vm:WarehouseViewModel}">
-        <view:WarehouseView DataContext="{Binding}"/>
-    </DataTemplate>
-    
-    <DataTemplate DataType="{x:Type vm:OrderViewModel}">
-        <view:OrderView DataContext="{Binding}"/>
-    </DataTemplate>
-    
-    <DataTemplate DataType="{x:Type vm:ReportViewModel}">
-        <view:ReportView DataContext="{Binding}"/>
-    </DataTemplate>
-    -->
-
 </ResourceDictionary>

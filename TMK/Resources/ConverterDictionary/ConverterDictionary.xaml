@@ -1,7 +1,8 @@
 ﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-                    xmlns:cnv="clr-namespace:TMK.Infrastructure.Converters">
-    
-    
-    
+                    xmlns:conv="clr-namespace:TMK.Infrastructure.Converters">
+    <conv:ColorToBrushConverter x:Key="ColorToBrushConverter"/>
+    <conv:BoolQualityToTextConverter x:Key="BoolQualityToTextConverter"/>
+
+
 </ResourceDictionary>
