@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 namespace Storage.Entities
 {
     [Table("pipe")]
-    public class Pipe : Entity
+    public class Tube : Entity
     {
 
         /// <summary>

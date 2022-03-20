@@ -1,12 +1,13 @@
 ﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:vm="clr-namespace:TMK.Screen.ViewModels"
-                    xmlns:view="clr-namespace:TMK.Screen.Views">
+                    xmlns:view="clr-namespace:TMK.Screen.Pipe.Views"
+                    >
 
 
-    <DataTemplate DataType="{x:Type vm:PipesViewModel}">
-        <view:PipesView DataContext="{Binding}"/>
-    </DataTemplate>
+    <!--<DataTemplate DataType="{x:Type vm:TubesViewModel}">
+        <view:TubesView DataContext="{Binding}"/>
+    </DataTemplate>-->
     <!--
     <DataTemplate DataType="{x:Type vm:ManageCafeViewModel}">
         <view:ManageCafeView DataContext="{Binding}"/>

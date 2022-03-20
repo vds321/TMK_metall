@@ -2,9 +2,9 @@
 
 namespace TMK.Screen.ViewModels
 {
-    public class PipesViewModel : TitledViewModel
+    public class TubesViewModel : TitledViewModel
     {
-        public PipesViewModel()
+        public TubesViewModel()
         {
             Title = "Трубы";
         }

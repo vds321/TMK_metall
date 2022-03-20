@@ -11,8 +11,8 @@ namespace TMK.Screen.ViewModels
     {
         private readonly IUserDialog _UserDialog;
         private readonly IRepository<SteelMark> _SteelMarkRepository;
-        private readonly IRepository<Pipe> _PipesRepository;
-        private readonly IRepository<Package> _PackagesRepository;
+        private readonly IRepository<Tube> _TubesRepository;
+        private readonly IRepository<Bundle> _BundlesRepository;
 
         #region Свойства
 
@@ -33,23 +33,23 @@ namespace TMK.Screen.ViewModels
 
         #region Команды
 
-        #region Command ShowPipesViewCommand : Показать раздел труб
+        #region Command ShowTubesViewCommand : Показать раздел труб
 
 
         /// <summary>Показать раздел труб</summary> 
-        private ICommand _ShowPipesViewCommand;
+        private ICommand _ShowTubesViewCommand;
 
         /// <summary>Показать раздел труб</summary>
 
-        public ICommand ShowPipesViewCommand => _ShowPipesViewCommand
-            ??= new LambdaCommand(OnShowPipesViewCommandExecuted, CanShowPipesViewCommandExecute);
+        public ICommand ShowTubesViewCommand => _ShowTubesViewCommand
+            ??= new LambdaCommand(OnShowTubesViewCommandExecuted, CanShowTubesViewCommandExecute);
 
 
         /// <summary>Проверка возможности выполнения Показать раздел труб</summary>
-        private bool CanShowPipesViewCommandExecute() => true;
+        private bool CanShowTubesViewCommandExecute() => true;
 
         /// <summary>Логика выполнения Показать раздел труб</summary>
-        private void OnShowPipesViewCommandExecuted()
+        private void OnShowTubesViewCommandExecuted()
         {
 
         }
@@ -57,23 +57,23 @@ namespace TMK.Screen.ViewModels
 
         #endregion
 
-        #region Command ShowPackagesViewCommand : Показать раздел пакетов
+        #region Command ShowBundlesViewCommand : Показать раздел пакетов
 
 
         /// <summary>Показать раздел пакетов</summary> 
-        private ICommand _ShowPackagesViewCommand;
+        private ICommand _ShowBundlesViewCommand;
 
         /// <summary>Показать раздел пакетов</summary>
 
-        public ICommand ShowPackagesViewCommand => _ShowPackagesViewCommand
-            ??= new LambdaCommand(OnShowPackagesViewCommandExecuted, CanShowPackagesViewCommandExecute);
+        public ICommand ShowBundlesViewCommand => _ShowBundlesViewCommand
+            ??= new LambdaCommand(OnShowBundlesViewCommandExecuted, CanShowBundlesViewCommandExecute);
 
 
         /// <summary>Проверка возможности выполнения Показать раздел пакетов</summary>
-        private bool CanShowPackagesViewCommandExecute() => true;
+        private bool CanShowBundlesViewCommandExecute() => true;
 
         /// <summary>Логика выполнения Показать раздел пакетов</summary>
-        private void OnShowPackagesViewCommandExecuted()
+        private void OnShowBundlesViewCommandExecuted()
         {
 
         }
@@ -83,13 +83,13 @@ namespace TMK.Screen.ViewModels
 
         #endregion
 
-        public MainWindowViewModel(IUserDialog userDialog, IRepository<SteelMark> steelMarkRepository, IRepository<Pipe> pipesRepository, IRepository<Package> packagesRepository)
+        public MainWindowViewModel(IUserDialog userDialog, IRepository<SteelMark> steelMarkRepository, IRepository<Tube> pipesRepository, IRepository<Bundle> packagesRepository)
         {
             Title = "Тестовое задание";
             _UserDialog = userDialog;
             _SteelMarkRepository = steelMarkRepository;
-            _PipesRepository = pipesRepository;
-            _PackagesRepository = packagesRepository;
+            _TubesRepository = pipesRepository;
+            _BundlesRepository = packagesRepository;
         }
     }
 }

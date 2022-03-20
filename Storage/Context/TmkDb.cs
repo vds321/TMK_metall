@@ -7,8 +7,8 @@ namespace Storage.Context
     {
         public TmkDB(DbContextOptions<TmkDB> options) : base(options) { }
 
-        public DbSet<Pipe> Pipes { get; set; }
-        public DbSet<Bundle> Packages { get; set; }
+        public DbSet<Tube> Tubes { get; set; }
+        public DbSet<Bundle> Bundles { get; set; }
         public DbSet<SteelMark> SteelMarks { get; set; }
     }
 }

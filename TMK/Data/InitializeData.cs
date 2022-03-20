@@ -11,11 +11,11 @@ namespace TMK.Data
         private readonly TmkDB _DB;
         private readonly ILogger<DbInitializer> _Logger;
         private SteelMark[] _SteelMarks;
-        private Pipe[] _Pipes;
-        private Package[] _Packages;
+        private Tube[] _Tubes;
+        private Bundle[] _Bundles;
 
         private const int steelMarkCount = 5;
-        private const int pipeCount = 100;
+        private const int tubeCount = 100;
         private const int packegesCount = 10;
 
         public DbInitializer(TmkDB dB, ILogger<DbInitializer> logger)
@@ -27,7 +27,7 @@ namespace TMK.Data
         public void Initialize()
         {
             InitializeStellMark();
-            InitializePipe();
+            InitializeTube();
             InitializePackeges();
         }
 
@@ -45,13 +45,13 @@ namespace TMK.Data
             _DB.SteelMarks.AddRange(_SteelMarks);
             _DB.SaveChanges();
         }
-        private void InitializePipe()
+        private void InitializeTube()
         {
             Random random = new Random();
-            _Pipes = new Pipe[pipeCount];
-            for (int i = 0; i < pipeCount; i++)
+            _Tubes = new Tube[tubeCount];
+            for (int i = 0; i < tubeCount; i++)
             {
-                _Pipes[i] = new Pipe()
+                _Tubes[i] = new Tube()
                 {
                     Number = i + 1,
                     Size = random.NextDouble() * 10,
@@ -61,33 +61,33 @@ namespace TMK.Data
                 };
             }
 
-            _DB.Pipes.AddRange(_Pipes);
+            _DB.Tubes.AddRange(_Tubes);
             _DB.SaveChanges();
         }
         private void InitializePackeges()
         {
             Random random = new Random();
-            _Packages = new Package[packegesCount];
+            _Bundles = new Bundle[packegesCount];
             for (int i = 0; i < packegesCount; i++)
             {
-                _Packages[i] = new Package()
+                _Bundles[i] = new Bundle()
                 {
                     Number = i + 1,
                     Date = DateTime.Now.AddDays(-random.Next(1, 30)),
-                    Pipes = new List<Pipe>()
+                    Tubes = new List<Tube>()
                 };
             }
 
-            foreach (var package in _Packages)
+            foreach (var bundle in _Bundles)
             {
                 for (int i = 0; i < random.Next(0, 11); i++)
                 {
-                    var rnd = random.Next(0, pipeCount);
-                    if (!package.Pipes.Contains(_Pipes[rnd]))
-                        package.Pipes.Add(_Pipes[rnd]);
+                    var rnd = random.Next(0, tubeCount);
+                    if (!bundle.Tubes.Contains(_Tubes[rnd]))
+                        bundle.Tubes.Add(_Tubes[rnd]);
                 }
             }
-            _DB.Packages.AddRange(_Packages);
+            _DB.Bundles.AddRange(_Bundles);
             _DB.SaveChanges();
         }
     }

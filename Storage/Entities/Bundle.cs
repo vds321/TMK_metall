@@ -23,11 +23,11 @@ namespace Storage.Entities
         /// <summary>
         /// Список труб в пакете
         /// </summary>
-        public virtual ICollection<Pipe> Pipes { get; set; }
+        public virtual ICollection<Tube> Tubes { get; set; }
 
         public override string ToString()
         {
-            return $"Пакет {Number}, Дата {Date}, Труб в пакете: {Pipes?.Count}";
+            return $"Пакет {Number}, Дата {Date}, Труб в пакете: {Tubes?.Count}";
         }
     }
 

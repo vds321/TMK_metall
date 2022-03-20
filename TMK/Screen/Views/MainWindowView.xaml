@@ -13,13 +13,13 @@
     </Window.Resources>
     <i:Interaction.Triggers>
         <i:EventTrigger EventName="Loaded">
-            <i:InvokeCommandAction Command="{Binding ShowPipesViewCommand}"/>
+            <i:InvokeCommandAction Command="{Binding ShowTubesViewCommand}"/>
         </i:EventTrigger>
     </i:Interaction.Triggers>
     <DockPanel>
         <Menu DockPanel.Dock="Top" Height="30" FontSize="18" IsMainMenu="True">
-            <MenuItem Header="Трубы" Command="{Binding ShowPipesViewCommand}"/>
-            <MenuItem Header="Пакеты" Command="{Binding ShowPackagesViewCommand}"/>
+            <MenuItem Header="Трубы" Command="{Binding ShowTubesViewCommand}"/>
+            <MenuItem Header="Пакеты" Command="{Binding ShowBundlesViewCommand}"/>
             <MenuItem Header="Выход" Command="{StaticResource CloseCommand}" Foreground="{StaticResource DarkRedBrush}"/>
         </Menu>
         <StatusBar DockPanel.Dock="Bottom" Height="25"></StatusBar>
