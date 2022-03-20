@@ -1,0 +1,9 @@
+{
+  "Database": {
+    "Type": "InMemory",
+    "ConnectionStrings": {
+      "InMemory": ""
+    }
+  } 
+
+}
