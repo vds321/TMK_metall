@@ -47,11 +47,12 @@ namespace Storage
 
         public T Get(int id) => Items.SingleOrDefault(item => item.Id == id);
 
-        public void Remove(int id)
+        public T Remove(int id)
         {
             var item = _Set.Local.FirstOrDefault(i => i.Id == id) ?? new T { Id = id };
             _db.Remove(item);
             if (AutoSaveChanges) _db.SaveChanges();
+            return item;
         }
 
         public void Update(T item)

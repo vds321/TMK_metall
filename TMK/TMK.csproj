@@ -11,7 +11,14 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="Resources\Icon\add.png" />
+    <None Remove="Resources\Icon\edit.png" />
+    <None Remove="Resources\Icon\remove.png" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="DotNetProjects.Extended.Wpf.Toolkit" Version="5.0.100" />
+    <PackageReference Include="Fluent.Ribbon" Version="9.0.4" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.InMemory" Version="5.0.15" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="5.0.15" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="5.0.15">
@@ -29,11 +36,13 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Resources\Icon\" />
+    <ProjectReference Include="..\Storage\Storage.csproj" />
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Storage\Storage.csproj" />
+    <Resource Include="Resources\Icon\add.png" />
+    <Resource Include="Resources\Icon\edit.png" />
+    <Resource Include="Resources\Icon\remove.png" />
   </ItemGroup>
 
 </Project>

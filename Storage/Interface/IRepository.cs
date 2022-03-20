@@ -43,7 +43,7 @@ namespace Storage.Interface
         /// Удалить объект из БД
         /// </summary>
         /// <param name="id"></param>
-        void Remove(int id);
+        T Remove(int id);
 
         /// <summary>
         /// Прямой запрос в БД

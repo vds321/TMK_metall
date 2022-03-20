@@ -8,7 +8,7 @@ namespace TMK.Screen.Models
     {
         public int Id { get; }
 
-        private readonly Color _transparentColor = Colors.Black;
+        private readonly Color _transparentColor = Colors.Transparent;
         private readonly Color _redColor = Colors.Red;
 
         #region Свойства
@@ -69,6 +69,32 @@ namespace TMK.Screen.Models
 
         #endregion
 
+        #region Пакет
+
+        private Bundle _Bundle;
+
+        ///<summary>Пакет</summary>
+        public Bundle Bundle
+        {
+            get => _Bundle;
+            set => Set(ref _Bundle, value);
+        }
+
+        #endregion
+
+        #region Марка стали
+
+        private SteelMark _SteelMark;
+
+        ///<summary>Марка стали</summary>
+        public SteelMark SteelMark
+        {
+            get => _SteelMark;
+            set => Set(ref _SteelMark, value);
+        }
+
+        #endregion
+
         #endregion
 
 
@@ -79,6 +105,8 @@ namespace TMK.Screen.Models
             Quality = tube.IsGoodQuality;
             Size = tube.Size;
             Weight = tube.Weight;
+            Bundle = tube.Bundle;
+            SteelMark = tube.SteelMark;
         }
 
         public Color TubeTextColor => Quality ? _transparentColor : _redColor;
