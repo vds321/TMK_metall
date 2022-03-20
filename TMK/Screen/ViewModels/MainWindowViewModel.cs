@@ -76,7 +76,7 @@ namespace TMK.Screen.ViewModels
         /// <summary>Логика выполнения Показать раздел пакетов</summary>
         private void OnShowBundlesViewCommandExecuted()
         {
-            CurrentViewModel = new BundleViewModel();
+            CurrentViewModel = new BundleViewModel(_UserDialog, _BundlesRepository);
             OnPropertyChanged(nameof(CurrentViewModel));
         }
 

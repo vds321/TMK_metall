@@ -1,13 +1,149 @@
 ﻿<UserControl x:Class="TMK.Screen.Views.BundlesView"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" mc:Ignorable="d" 
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" mc:Ignorable="d"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
-             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:utils="clr-namespace:TMK.Utils"
              xmlns:vm="clr-namespace:TMK.Screen.ViewModels"
-             xmlns:local="clr-namespace:TMK.Screen.Views"
              d:DataContext="{d:DesignInstance vm:BundleViewModel}"
              d:DesignHeight="450" d:DesignWidth="800">
-    <Grid>
-        <TextBlock FontSize="25" HorizontalAlignment="Center" VerticalAlignment="Center">Пакеты</TextBlock>        
-    </Grid>
+    <DockPanel>
+        <Grid DockPanel.Dock="Top">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="85"/>
+            </Grid.RowDefinitions>
+            <Grid Grid.Row="0">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="Auto"/>
+                </Grid.ColumnDefinitions>
+                <RibbonGroup Grid.Column="0" Header="Управление пакетами" BorderThickness="1" BorderBrush="{StaticResource GrayBrush}">
+                    <RibbonButton LargeImageSource="/Resources/Icon/add.png" Label="Добавить"
+                                  Style="{StaticResource RibbonButtonStyle}" Command="{Binding AddBundleCommand}"/>
+                    <RibbonButton LargeImageSource="/Resources/Icon/edit.png" Label="Редактировать"
+                                  Style="{StaticResource RibbonButtonStyle}" Command="{Binding EditBundleCommand}"
+                                  CommandParameter="{Binding SelectedItem}"/>
+                    <RibbonButton LargeImageSource="/Resources/Icon/remove.png" Label="Удалить пакет"
+                                  Style="{StaticResource RibbonButtonStyle}" Command="{Binding RemoveBundleCommand}"/>
+                </RibbonGroup>
+                <RibbonGroup Grid.Column="1" Header="Управление трубами" BorderThickness="1" BorderBrush="{StaticResource GrayBrush}">
+                    <RibbonButton LargeImageSource="/Resources/Icon/remove.png" Label="Удалить трубу из пакета"
+                                  Style="{StaticResource RibbonButtonStyle}" Command="{Binding RemoveTubeFromBundleCommand}"/>
+                </RibbonGroup>
+            </Grid>
+        </Grid>
+        <StatusBar DockPanel.Dock="Bottom"></StatusBar>
+        <StackPanel Orientation="Horizontal">
+            <ListView Name="BundleListView" ItemsSource="{Binding BundleModelsCollection, UpdateSourceTrigger=PropertyChanged}" 
+                  ItemContainerStyle="{StaticResource ListViewItemStyle}" SelectedItem="{Binding SelectedItem}"
+                  utils:GridViewSort.AutoSort="True" IsSynchronizedWithCurrentItem="True" SelectionMode="Single">
+                <ListView.View>
+                    <GridView ColumnHeaderContainerStyle="{StaticResource GridViewColumnHeader}">
+                        <GridViewColumn Header="Ид" utils:GridViewSort.PropertyName="Id" Width="50">
+                            <GridViewColumn.CellTemplate>
+                                <DataTemplate>
+                                    <Border Style="{StaticResource CellBorderStyle}">
+                                        <TextBlock Style="{StaticResource TextBlockStyle}" Text="{Binding Id}" Width="30"/>
+                                    </Border>
+                                </DataTemplate>
+                            </GridViewColumn.CellTemplate>
+                        </GridViewColumn>
+                        <GridViewColumn Header="Номер" utils:GridViewSort.PropertyName="Number" Width="85">
+                            <GridViewColumn.CellTemplate>
+                                <DataTemplate>
+                                    <Border Style="{StaticResource CellBorderStyle}">
+                                        <TextBlock Style="{StaticResource TextBlockStyle}" Text="{Binding Number}" Width="40"/>
+                                    </Border>
+                                </DataTemplate>
+                            </GridViewColumn.CellTemplate>
+                        </GridViewColumn>
+                        <GridViewColumn Header="Дата пакета" utils:GridViewSort.PropertyName="Date" Width="105">
+                            <GridViewColumn.CellTemplate>
+                                <DataTemplate>
+                                    <Border Style="{StaticResource CellBorderStyle}">
+                                        <TextBlock Style="{StaticResource TextBlockStyle}" Text="{Binding Date, StringFormat=dd/MM/yyyy}" Width="105"
+                                               />
+                                    </Border>
+                                </DataTemplate>
+                            </GridViewColumn.CellTemplate>
+                        </GridViewColumn>
+                        <GridViewColumn Header="Количество труб в пакете" utils:GridViewSort.PropertyName="Tubes.Count" Width="125">
+                            <GridViewColumn.CellTemplate>
+                                <DataTemplate>
+                                    <Border Style="{StaticResource CellBorderStyle}">
+                                        <TextBlock Style="{StaticResource TextBlockStyle}" Text="{Binding Tubes.Count}" Width="75"/>
+                                    </Border>
+                                </DataTemplate>
+                            </GridViewColumn.CellTemplate>
+                        </GridViewColumn>
+                    </GridView>
+                </ListView.View>
+            </ListView>
+            <ListView Name="TubeList" ItemsSource="{Binding TubeModelsCollection, UpdateSourceTrigger=PropertyChanged}" 
+                      ItemContainerStyle="{StaticResource ListViewItemStyle}" SelectedItem="{Binding SelectedTube}"
+                      utils:GridViewSort.AutoSort="True" IsSynchronizedWithCurrentItem="True" SelectionMode="Single">
+                <ListView.View>
+                    <GridView ColumnHeaderContainerStyle="{StaticResource GridViewColumnHeader}">
+                        <GridViewColumn Header="Ид" utils:GridViewSort.PropertyName="Id" Width="50">
+                            <GridViewColumn.CellTemplate>
+                                <DataTemplate>
+                                    <Border Style="{StaticResource CellBorderStyle}">
+                                        <TextBlock Style="{StaticResource TextBlockStyle}" Text="{Binding Id}" Width="30"/>
+                                    </Border>
+                                </DataTemplate>
+                            </GridViewColumn.CellTemplate>
+                        </GridViewColumn>
+                        <GridViewColumn Header="Номер" utils:GridViewSort.PropertyName="Number" Width="85">
+                            <GridViewColumn.CellTemplate>
+                                <DataTemplate>
+                                    <Border Style="{StaticResource CellBorderStyle}">
+                                        <TextBlock Style="{StaticResource TextBlockStyle}" Text="{Binding Number}" Width="40"/>
+                                    </Border>
+                                </DataTemplate>
+                            </GridViewColumn.CellTemplate>
+                        </GridViewColumn>
+                        <GridViewColumn Header="Качество" utils:GridViewSort.PropertyName="Quality" Width="95">
+                            <GridViewColumn.CellTemplate>
+                                <DataTemplate>
+                                    <Border Style="{StaticResource CellBorderStyle}">
+                                        <TextBlock Style="{StaticResource TextBlockStyle}" Text="{Binding Quality, Converter={StaticResource BoolQualityToTextConverter}}" Width="95"
+                                               Background="{Binding TubeTextColor, Converter={StaticResource ColorToBrushConverter}}"/>
+                                    </Border>
+                                </DataTemplate>
+                            </GridViewColumn.CellTemplate>
+                        </GridViewColumn>
+                        <GridViewColumn Header="Размер" utils:GridViewSort.PropertyName="Size" Width="75">
+                            <GridViewColumn.CellTemplate>
+                                <DataTemplate>
+                                    <Border Style="{StaticResource CellBorderStyle}">
+                                        <TextBlock Style="{StaticResource TextBlockStyle}" Text="{Binding Size, StringFormat=F2}" Width="75"/>
+                                    </Border>
+                                </DataTemplate>
+                            </GridViewColumn.CellTemplate>
+                        </GridViewColumn>
+                        <GridViewColumn Header="Вес" utils:GridViewSort.PropertyName="Weight" Width="75">
+                            <GridViewColumn.CellTemplate>
+                                <DataTemplate>
+                                    <Border Style="{StaticResource CellBorderStyle}">
+                                        <TextBlock Style="{StaticResource TextBlockStyle}" Text="{Binding Weight, StringFormat=F2}" Width="75"/>
+                                    </Border>
+                                </DataTemplate>
+                            </GridViewColumn.CellTemplate>
+                        </GridViewColumn>
+                        <GridViewColumn Header="Марка стали" utils:GridViewSort.PropertyName="SteelMark.Name" Width="135">
+                            <GridViewColumn.CellTemplate>
+                                <DataTemplate>
+                                    <Border Style="{StaticResource CellBorderStyle}">
+                                        <TextBlock Style="{StaticResource TextBlockStyle}" Text="{Binding SteelMark.Name}" Width="135"/>
+                                    </Border>
+                                </DataTemplate>
+                            </GridViewColumn.CellTemplate>
+                        </GridViewColumn>
+                    </GridView>
+                </ListView.View>
+            </ListView>
+        </StackPanel>
+        
+    </DockPanel>
 </UserControl>
+
