@@ -35,7 +35,7 @@
         <StatusBar DockPanel.Dock="Bottom"></StatusBar>
         <StackPanel Orientation="Horizontal">
             <ListView Name="BundleListView" ItemsSource="{Binding BundleModelsCollection, UpdateSourceTrigger=PropertyChanged}" 
-                  ItemContainerStyle="{StaticResource ListViewItemStyle}" SelectedItem="{Binding SelectedItem}"
+                  ItemContainerStyle="{StaticResource ListViewItemStyle}" SelectedItem="{Binding SelectedItem, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
                   utils:GridViewSort.AutoSort="True" IsSynchronizedWithCurrentItem="True" SelectionMode="Single">
                 <ListView.View>
                     <GridView ColumnHeaderContainerStyle="{StaticResource GridViewColumnHeader}">

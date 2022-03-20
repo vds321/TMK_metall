@@ -26,7 +26,11 @@ namespace TMK.Screen.ViewModels
         public ObservableCollection<BundleModel> BundleModelsCollection
         {
             get => _BundleModelsCollection;
-            set => Set(ref _BundleModelsCollection, value);
+            set
+            {
+                Set(ref _BundleModelsCollection, value);
+                OnPropertyChanged(nameof(TubeModelsCollection));
+            }
         }
 
         #endregion
@@ -45,6 +49,7 @@ namespace TMK.Screen.ViewModels
                 {
                     TubeModelsCollection = new ObservableCollection<TubeModel>();
                     if (SelectedItem != null) TubeModelsCollection.AddRange(SelectedItem.Tubes.Select(item => new TubeModel(item)));
+
                     OnPropertyChanged(nameof(TubeModelsCollection));
                 }
             }
@@ -178,10 +183,22 @@ namespace TMK.Screen.ViewModels
         private void OnRemoveTubeFromBundleCommandExecuted()
         {
             if (SelectedTube == null) return;
+            var idTube = SelectedTube.Id;
+            var idBundle = SelectedItem.Id;
+            var bundle = _BundlesRepository.Get(idBundle);
+            var tube = _BundlesRepository.Get(idBundle).Tubes.FirstOrDefault(x => x.Id == idTube);
 
+            bundle.Tubes.Remove(tube);
+            _BundlesRepository.Update(bundle);
 
-            OnPropertyChanged(nameof(TubeModelsCollection));
+            TubeModelsCollection.Remove(SelectedTube);
+            BundleModelsCollection.Clear();
+            BundleModelsCollection.AddRange(_BundlesRepository.Items.ToList()
+                .OrderBy(x => x.Id)
+                .Select(x => new BundleModel(x)).ToList());
             OnPropertyChanged(nameof(BundleModelsCollection));
+            SelectedItem = BundleModelsCollection.FirstOrDefault(x => x.Id == idBundle);
+            OnPropertyChanged(nameof(SelectedItem));
         }
 
 
