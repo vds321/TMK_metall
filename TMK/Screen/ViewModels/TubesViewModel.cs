@@ -113,7 +113,30 @@ namespace TMK.Screen.ViewModels
         /// <summary>Логика выполнения Редактировать трубу</summary>
         private void OnEditTubeCommandExecuted()
         {
-
+            if (SelectedItem == null) return;
+            var idTube = SelectedItem.Id;
+            var tube = _TubesRepository.Get(idTube);
+            var model = new AddEditTubeViewModel(tube, _SteelMarkRepository, _BundleRepository);
+            var window = new AddEditTubeView()
+            {
+                DataContext = model,
+                Owner = App.CurrentWindow,
+                ResizeMode = ResizeMode.NoResize,
+                WindowStartupLocation = WindowStartupLocation.CenterOwner
+            };
+            if (window.ShowDialog() != true) return;
+            tube.Number = model.NumberTube;
+            tube.Size = model.SizeTube;
+            tube.Weight = model.WeightTube;
+            tube.SteelMark = _SteelMarkRepository.Items.FirstOrDefault(x => x.Name == model.SteelMarkTube);
+            tube.Bundle = _BundleRepository.Items.FirstOrDefault(x => x.Number == model.BundleNumber);
+            tube.IsGoodQuality = model.IsGoodQualityTube;
+            _TubesRepository.Update(tube);
+            TubeModelsCollection.Clear();
+            TubeModelsCollection.AddRange(_TubesRepository.Items.ToList()
+                .OrderBy(x => x.Id)
+                .Select(x => new TubeModel(x)).ToList());
+            OnPropertyChanged(nameof(TubeModelsCollection));
         }
 
 

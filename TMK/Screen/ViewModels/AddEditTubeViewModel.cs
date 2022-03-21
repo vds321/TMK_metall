@@ -125,8 +125,6 @@ namespace TMK.Screen.ViewModels
             SteelMarks = _SteelMarkRepository.Items.Select(x => x.Name).ToList();
             Bundles = new List<int>();
             Bundles = _BundleRepository.Items.Select(x => x.Number).OrderBy(x => x).ToList();
-
-
         }
     }
 
