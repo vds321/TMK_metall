@@ -43,10 +43,11 @@
                                              SelectedItem="{Binding SteelMarkTube, UpdateSourceTrigger=PropertyChanged}"/>
             <xctk:PropertyGridEditorComboBox Grid.Column="1" Grid.Row="4" Margin="20" ItemsSource="{Binding Bundles}"
                                              SelectedItem="{Binding BundleNumber, UpdateSourceTrigger=PropertyChanged}"/>
-            <StackPanel Grid.Column="1" Grid.Row="5" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="5">
-                <RadioButton Margin="5" Content="Хорошее" IsChecked="{Binding IsGoodQualityTube, UpdateSourceTrigger=PropertyChanged}"/>
-                <RadioButton Margin="5" Content="Брак"/>
+            <StackPanel Grid.Column="1" Grid.Row="5" Orientation="Horizontal">
+                <CheckBox  VerticalAlignment="Center" Margin="20" IsChecked="{Binding IsGoodQualityTube}"/>
+                <TextBlock Text="Отметить, если хорошее качество" VerticalAlignment="Center"/>
             </StackPanel>
+            
         </Grid>
 
     </DockPanel>

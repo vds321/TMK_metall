@@ -137,6 +137,8 @@ namespace TMK.Screen.ViewModels
                 .OrderBy(x => x.Id)
                 .Select(x => new TubeModel(x)).ToList());
             OnPropertyChanged(nameof(TubeModelsCollection));
+            SelectedItem = TubeModelsCollection.FirstOrDefault(x => x.Id == idTube);
+            OnPropertyChanged(nameof(SelectedItem));
         }
 
 

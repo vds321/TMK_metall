@@ -78,10 +78,10 @@ namespace TMK.Screen.ViewModels
 
         #region Номер пакета
 
-        private int _BundleNumber;
+        private int? _BundleNumber;
 
         ///<summary>Номер пакета</summary>
-        public int BundleNumber
+        public int? BundleNumber
         {
             get => _BundleNumber;
             set => Set(ref _BundleNumber, value);
@@ -116,7 +116,7 @@ namespace TMK.Screen.ViewModels
                 SizeTube = tube.Size;
                 WeightTube = tube.Weight;
                 SteelMarkTube = tube.SteelMark.Name;
-                BundleNumber = tube.Bundle.Number;
+                BundleNumber = tube.Bundle?.Number;
                 IsGoodQualityTube = tube.IsGoodQuality;
             }
             OnPropertyChanged(nameof(IsGoodQualityTube));
