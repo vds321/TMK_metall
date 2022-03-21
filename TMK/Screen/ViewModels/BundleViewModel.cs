@@ -1,11 +1,14 @@
 ﻿using Storage.Entities;
 using Storage.Interface;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
+using System.Windows;
 using System.Windows.Input;
 using TMK.Infrastructure.Command.Base;
 using TMK.Screen.Models;
 using TMK.Screen.ViewModels.Base;
+using TMK.Screen.Views;
 using TMK.Service.Interface;
 using TMK.Utils.Helpers;
 
@@ -14,7 +17,7 @@ namespace TMK.Screen.ViewModels
     public class BundleViewModel : TitledViewModel
     {
         private IUserDialog _UserDialog;
-        private IRepository<Bundle> _BundlesRepository;
+        private readonly IRepository<Bundle> _BundlesRepository;
 
         #region Свойства
 
@@ -85,7 +88,6 @@ namespace TMK.Screen.ViewModels
 
         #endregion
 
-
         #region Команды
 
         #region Command AddBundleCommand : Добавить пакет
@@ -101,12 +103,27 @@ namespace TMK.Screen.ViewModels
 
 
         /// <summary>Проверка возможности выполнения Добавить пакет</summary>
-        private bool CanAddBundleCommandExecute() => SelectedItem != null;
+        private bool CanAddBundleCommandExecute() => true;
 
         /// <summary>Логика выполнения Добавить пакет</summary>
         private void OnAddBundleCommandExecuted()
         {
-
+            var bundle = new Bundle();
+            var model = new AddEditBundleViewModel(bundle);
+            var window = new AddEditBundleView()
+            {
+                DataContext = model,
+                Owner = App.CurrentWindow,
+                WindowStartupLocation = WindowStartupLocation.CenterOwner,
+                ResizeMode = ResizeMode.NoResize
+            };
+            if (window.ShowDialog() != true) return;
+            bundle.Number = model.Number;
+            bundle.Date = model.Date;
+            bundle.Tubes = new List<Tube>();
+            var newBundle = _BundlesRepository.Add(bundle);
+            BundleModelsCollection.Add(new BundleModel(newBundle));
+            OnPropertyChanged(nameof(BundleModelsCollection));
         }
 
 
@@ -130,7 +147,28 @@ namespace TMK.Screen.ViewModels
         /// <summary>Логика выполнения Редактировать пакет</summary>
         private void OnEditBundleCommandExecuted()
         {
-
+            if (SelectedItem == null) return;
+            var idBundle = SelectedItem.Id;
+            var bundle = _BundlesRepository.Get(idBundle);
+            var model = new AddEditBundleViewModel(bundle);
+            var window = new AddEditBundleView()
+            {
+                DataContext = model,
+                Owner = App.CurrentWindow,
+                WindowStartupLocation = WindowStartupLocation.CenterOwner,
+                ResizeMode = ResizeMode.NoResize
+            };
+            if (window.ShowDialog() != true) return;
+            bundle.Number = model.Number;
+            bundle.Date = model.Date;
+            _BundlesRepository.Update(bundle);
+            BundleModelsCollection.Clear();
+            BundleModelsCollection.AddRange(_BundlesRepository.Items.ToList()
+                .OrderBy(x => x.Id)
+                .Select(x => new BundleModel(x)).ToList());
+            OnPropertyChanged(nameof(BundleModelsCollection));
+            SelectedItem = BundleModelsCollection.FirstOrDefault(x => x.Id == idBundle);
+            OnPropertyChanged(nameof(SelectedItem));
         }
 
 

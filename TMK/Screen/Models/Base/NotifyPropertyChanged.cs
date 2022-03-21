@@ -1,8 +1,7 @@
 ﻿using System.ComponentModel;
 using System.Runtime.CompilerServices;
-using System.Windows.Markup;
 
-namespace TMK.Models.Base
+namespace TMK.Screen.Models.Base
 {
     abstract class NotifyPropertyChanged : INotifyPropertyChanged
     {

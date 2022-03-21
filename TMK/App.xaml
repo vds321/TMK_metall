@@ -14,7 +14,6 @@
                 <ResourceDictionary Source="Resources/Template/ModelMainView.xaml"/>
                 <ResourceDictionary Source="Resources/ConverterDictionary/ConverterDictionary.xaml"/>
                 <ResourceDictionary Source="Resources/Style/GridViewStyle.xaml"/>
-                <!--<ResourceDictionary Source="Resources/Template/ButtonControl.xaml"/>-->
             </ResourceDictionary.MergedDictionaries>
             <vm:ViewModelLocator x:Key="Locator"/>
         </ResourceDictionary>
