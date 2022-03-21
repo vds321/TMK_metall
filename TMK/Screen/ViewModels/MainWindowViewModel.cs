@@ -51,7 +51,7 @@ namespace TMK.Screen.ViewModels
         /// <summary>Логика выполнения Показать раздел труб</summary>
         private void OnShowTubesViewCommandExecuted()
         {
-            CurrentViewModel = new TubesViewModel(_UserDialog, _TubesRepository);
+            CurrentViewModel = new TubesViewModel(_UserDialog, _TubesRepository, _SteelMarkRepository, _BundlesRepository);
             OnPropertyChanged(nameof(CurrentViewModel));
         }
 
@@ -85,7 +85,9 @@ namespace TMK.Screen.ViewModels
 
         #endregion
 
-        public MainWindowViewModel(IUserDialog userDialog, IRepository<SteelMark> steelMarkRepository, IRepository<Tube> pipesRepository, IRepository<Bundle> packagesRepository)
+        public MainWindowViewModel(IUserDialog userDialog, IRepository<SteelMark> steelMarkRepository,
+                                                           IRepository<Tube> pipesRepository,
+                                                           IRepository<Bundle> packagesRepository)
         {
             Title = "Тестовое задание";
             _UserDialog = userDialog;

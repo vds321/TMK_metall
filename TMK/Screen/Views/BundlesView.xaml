@@ -18,9 +18,9 @@
                     <ColumnDefinition Width="Auto"/>
                 </Grid.ColumnDefinitions>
                 <RibbonGroup Grid.Column="0" Header="Управление пакетами" BorderThickness="1" BorderBrush="{StaticResource GrayBrush}">
-                    <RibbonButton LargeImageSource="/Resources/Icon/add.png" Label="Добавить"
+                    <RibbonButton LargeImageSource="/Resources/Icon/add.png" Label="Добавить пакет"
                                   Style="{StaticResource RibbonButtonStyle}" Command="{Binding AddBundleCommand}"/>
-                    <RibbonButton LargeImageSource="/Resources/Icon/edit.png" Label="Редактировать"
+                    <RibbonButton LargeImageSource="/Resources/Icon/edit.png" Label="Редактировать пакет"
                                   Style="{StaticResource RibbonButtonStyle}" Command="{Binding EditBundleCommand}"
                                   CommandParameter="{Binding SelectedItem}"/>
                     <RibbonButton LargeImageSource="/Resources/Icon/remove.png" Label="Удалить пакет"

@@ -10,7 +10,7 @@
                 <ResourceDictionary Source="Resources/CommandDictionary.xaml"/>
                 <ResourceDictionary Source="Resources/Brushes/BrushesDictionary.xaml"/>
                 <ResourceDictionary Source="Resources/Style/RibbonButtonStyle.xaml"/>
-                <!--<ResourceDictionary Source="Resources/Style/ButtonStyle.xaml"/>-->
+                <ResourceDictionary Source="Resources/Style/ButtonStyle.xaml"/>
                 <ResourceDictionary Source="Resources/Template/ModelMainView.xaml"/>
                 <ResourceDictionary Source="Resources/ConverterDictionary/ConverterDictionary.xaml"/>
                 <ResourceDictionary Source="Resources/Style/GridViewStyle.xaml"/>

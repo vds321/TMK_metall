@@ -17,11 +17,11 @@
                     <ColumnDefinition Width="Auto"/>
                 </Grid.ColumnDefinitions>
                 <RibbonGroup Grid.Column="0" Header="Настройки" BorderThickness="1" BorderBrush="{StaticResource GrayBrush}">
-                    <RibbonButton LargeImageSource="/Resources/Icon/add.png" Label="Добавить"
+                    <RibbonButton LargeImageSource="/Resources/Icon/add.png" Label="Добавить трубу"
                                   Style="{StaticResource RibbonButtonStyle}" Command="{Binding AddTubeCommand}"/>
-                    <RibbonButton LargeImageSource="/Resources/Icon/edit.png" Label="Редактировать"
+                    <RibbonButton LargeImageSource="/Resources/Icon/edit.png" Label="Редактировать трубу"
                                   Style="{StaticResource RibbonButtonStyle}" Command="{Binding EditTubeCommand}"/>
-                    <RibbonButton LargeImageSource="/Resources/Icon/remove.png" Label="Удалить"
+                    <RibbonButton LargeImageSource="/Resources/Icon/remove.png" Label="Удалить трубу"
                                   Style="{StaticResource RibbonButtonStyle}" Command="{Binding RemoveTubeCommand}"/>
                 </RibbonGroup>
             </Grid>
