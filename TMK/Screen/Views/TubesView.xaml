@@ -7,13 +7,14 @@
              xmlns:vm="clr-namespace:TMK.Screen.ViewModels"
              d:DataContext="{d:DesignInstance vm:TubesViewModel}"
              d:DesignHeight="450" d:DesignWidth="800">
-    <DockPanel>
+   <DockPanel>
         <Grid DockPanel.Dock="Top">
             <Grid.RowDefinitions>
                 <RowDefinition Height="85"/>
             </Grid.RowDefinitions>
             <Grid Grid.Row="0">
                 <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto"/>
                     <ColumnDefinition Width="Auto"/>
                 </Grid.ColumnDefinitions>
                 <RibbonGroup Grid.Column="0" Header="Настройки" BorderThickness="1" BorderBrush="{StaticResource GrayBrush}">
@@ -23,6 +24,9 @@
                                   Style="{StaticResource RibbonButtonStyle}" Command="{Binding EditTubeCommand}"/>
                     <RibbonButton LargeImageSource="/Resources/Icon/remove.png" Label="Удалить трубу"
                                   Style="{StaticResource RibbonButtonStyle}" Command="{Binding RemoveTubeCommand}"/>
+                </RibbonGroup>
+                <RibbonGroup Grid.Column="1" Header="Фильтры">
+                    <RibbonCheckBox Label="Только брак" IsChecked="{Binding IsFailToShow}" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" Margin="3,15,3,3"/>
                 </RibbonGroup>
             </Grid>
         </Grid>
@@ -34,7 +38,7 @@
                 <TextBlock Text="{Binding FailTubesCount}" Style="{StaticResource TextBlockStyle}"/>
             </StackPanel>
         </StatusBar>
-        <ListView Name="TubeListView" ItemsSource="{Binding TubeModelsCollection, UpdateSourceTrigger=PropertyChanged}" 
+        <ListView Name="TubeListView" ItemsSource="{Binding TubesView}" 
                   ItemContainerStyle="{StaticResource ListViewItemStyle}" SelectedItem="{Binding SelectedItem}"
                   utils:GridViewSort.AutoSort="True" IsSynchronizedWithCurrentItem="True" SelectionMode="Single">
             <ListView.View>

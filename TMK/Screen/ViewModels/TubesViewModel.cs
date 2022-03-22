@@ -1,8 +1,10 @@
 ﻿using Storage.Entities;
 using Storage.Interface;
 using System.Collections.ObjectModel;
+using System.ComponentModel;
 using System.Linq;
 using System.Windows;
+using System.Windows.Data;
 using System.Windows.Input;
 using TMK.Infrastructure.Command.Base;
 using TMK.Screen.Models;
@@ -19,6 +21,10 @@ namespace TMK.Screen.ViewModels
         private IRepository<Tube> _TubesRepository;
         private readonly IRepository<SteelMark> _SteelMarkRepository;
         private readonly IRepository<Bundle> _BundleRepository;
+
+        private readonly CollectionViewSource _TubesViewSource;
+
+        public ICollectionView TubesView => _TubesViewSource.View;
 
         #region Свойства
 
@@ -74,8 +80,26 @@ namespace TMK.Screen.ViewModels
 
         #endregion
 
+        #region Показать только брак
+
+        private bool _IsFailToShow;
+
+        ///<summary>Показать только брак</summary>
+        public bool IsFailToShow
+        {
+            get => _IsFailToShow;
+            set
+            {
+                if (Set(ref _IsFailToShow, value))
+                {
+                    _TubesViewSource.View.Refresh();
+                }
+            }
+        }
+
         #endregion
 
+        #endregion
 
         #region Команды
 
@@ -223,6 +247,21 @@ namespace TMK.Screen.ViewModels
             TubeModelsCollection.AddRange(tubes.Select(x => new TubeModel(x)).ToList());
             TubesCount = TubeModelsCollection.Count;
             FailTubesCount = TubeModelsCollection.Count(x => x.Quality != true);
+            _TubesViewSource = new CollectionViewSource
+            {
+                Source = TubeModelsCollection
+            };
+            _TubesViewSource.Filter += _TubesViewSource_Filter;
+
+        }
+
+        private void _TubesViewSource_Filter(object sender, FilterEventArgs e)
+        {
+            if (e.Item is not TubeModel tubeModel || !IsFailToShow) return;
+            if (tubeModel.Quality == IsFailToShow)
+            {
+                e.Accepted = false;
+            }
         }
     }
 }
