@@ -3,6 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" mc:Ignorable="d"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
              xmlns:utils="clr-namespace:TMK.Utils"
              xmlns:vm="clr-namespace:TMK.Screen.ViewModels"
              d:DataContext="{d:DesignInstance vm:TubesViewModel}"
@@ -16,6 +17,8 @@
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="Auto"/>
                     <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="Auto"/>
                 </Grid.ColumnDefinitions>
                 <RibbonGroup Grid.Column="0" Header="Настройки" BorderThickness="1" BorderBrush="{StaticResource GrayBrush}">
                     <RibbonButton LargeImageSource="/Resources/Icon/add.png" Label="Добавить трубу"
@@ -27,6 +30,12 @@
                 </RibbonGroup>
                 <RibbonGroup Grid.Column="1" Header="Фильтры">
                     <RibbonCheckBox Label="Только брак" IsChecked="{Binding IsFailToShow}" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" Margin="3,15,3,3"/>
+                    <RibbonCheckBox Label="Не в пакетах" IsChecked="{Binding IsNoInBundleShow}" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" Margin="3,15,3,3"/>
+                </RibbonGroup>
+                <RibbonGroup Grid.Column="2" Header="Фильтр по марке стали">
+                        <xctk:CheckComboBox ItemsSource="{Binding SteelMarks}" Width="170" Margin="5,15" IsEditable="False" IsDropDownOpen="False"
+                                            SelectedValue="{Binding SelectedSteelMarks, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
+                                            Delimiter=";"/>
                 </RibbonGroup>
             </Grid>
         </Grid>

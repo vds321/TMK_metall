@@ -1,5 +1,6 @@
 ﻿using Storage.Entities;
 using Storage.Interface;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
@@ -21,10 +22,10 @@ namespace TMK.Screen.ViewModels
         private IRepository<Tube> _TubesRepository;
         private readonly IRepository<SteelMark> _SteelMarkRepository;
         private readonly IRepository<Bundle> _BundleRepository;
-
         private readonly CollectionViewSource _TubesViewSource;
 
         public ICollectionView TubesView => _TubesViewSource.View;
+        public List<string> SteelMarks => _SteelMarkRepository.Items.Select(x => x.Name).ToList();
 
         #region Свойства
 
@@ -91,6 +92,44 @@ namespace TMK.Screen.ViewModels
             set
             {
                 if (Set(ref _IsFailToShow, value))
+                {
+                    _TubesViewSource.View.Refresh();
+                }
+            }
+        }
+
+        #endregion
+
+        #region Показать трубы не в пакетах
+
+        private bool _IsNoInBundleShow;
+
+        ///<summary>Показать трубы не в пакетах</summary>
+        public bool IsNoInBundleShow
+        {
+            get => _IsNoInBundleShow;
+            set
+            {
+                if (Set(ref _IsNoInBundleShow, value))
+                {
+                    _TubesViewSource.View.Refresh();
+                }
+            }
+        }
+
+        #endregion
+
+        #region Фильтр по марке стали
+
+        private string _SelectedSteelMarks;
+
+        ///<summary>Фильтр по марке стали</summary>
+        public string SelectedSteelMarks
+        {
+            get => _SelectedSteelMarks;
+            set
+            {
+                if (Set(ref _SelectedSteelMarks, value))
                 {
                     _TubesViewSource.View.Refresh();
                 }
@@ -251,17 +290,30 @@ namespace TMK.Screen.ViewModels
             {
                 Source = TubeModelsCollection
             };
-            _TubesViewSource.Filter += _TubesViewSource_Filter;
+            _TubesViewSource.Filter += _TubesViewSource_OnlyFailShowFilter;
+            _TubesViewSource.Filter += _TubesViewSource_NotInBundlesShowFilter;
+            _TubesViewSource.Filter += _TubesViewSource_SteelMarksFilter;
 
         }
 
-        private void _TubesViewSource_Filter(object sender, FilterEventArgs e)
+        private void _TubesViewSource_SteelMarksFilter(object sender, FilterEventArgs e)
+        {
+            if (e.Item is not TubeModel tubeModel || string.IsNullOrEmpty(SelectedSteelMarks)) return;
+            var filterList = SelectedSteelMarks.Split(new[] { ';' }).ToList();
+            if (!filterList.Contains(tubeModel.SteelMark.Name)) e.Accepted = false;
+        }
+
+        private void _TubesViewSource_NotInBundlesShowFilter(object sender, FilterEventArgs e)
+        {
+            if (e.Item is not TubeModel tubeModel || !IsNoInBundleShow) return;
+            if (IsNoInBundleShow && tubeModel.Bundle != null) e.Accepted = false;
+
+        }
+
+        private void _TubesViewSource_OnlyFailShowFilter(object sender, FilterEventArgs e)
         {
             if (e.Item is not TubeModel tubeModel || !IsFailToShow) return;
-            if (tubeModel.Quality == IsFailToShow)
-            {
-                e.Accepted = false;
-            }
+            if (tubeModel.Quality == IsFailToShow) e.Accepted = false;
         }
     }
 }
