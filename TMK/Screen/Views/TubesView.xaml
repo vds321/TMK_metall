@@ -26,7 +26,14 @@
                 </RibbonGroup>
             </Grid>
         </Grid>
-        <StatusBar DockPanel.Dock="Bottom"></StatusBar>
+        <StatusBar DockPanel.Dock="Bottom" Height="30">
+            <StackPanel Orientation="Horizontal">
+                <TextBlock Text="Всего труб: " Style="{StaticResource TextBlockStyle}"/>
+                <TextBlock Text="{Binding TubesCount, UpdateSourceTrigger=PropertyChanged}" Style="{StaticResource TextBlockStyle}"/>
+                <TextBlock Text=" в том числе, бракованных - " Style="{StaticResource TextBlockStyle}"/>
+                <TextBlock Text="{Binding FailTubesCount}" Style="{StaticResource TextBlockStyle}"/>
+            </StackPanel>
+        </StatusBar>
         <ListView Name="TubeListView" ItemsSource="{Binding TubeModelsCollection, UpdateSourceTrigger=PropertyChanged}" 
                   ItemContainerStyle="{StaticResource ListViewItemStyle}" SelectedItem="{Binding SelectedItem}"
                   utils:GridViewSort.AutoSort="True" IsSynchronizedWithCurrentItem="True" SelectionMode="Single">

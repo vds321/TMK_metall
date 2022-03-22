@@ -48,6 +48,32 @@ namespace TMK.Screen.ViewModels
 
         #endregion
 
+        #region Всего труб
+
+        private int _TubesCount;
+
+        ///<summary>Всего труб</summary>
+        public int TubesCount
+        {
+            get => _TubesCount;
+            set => Set(ref _TubesCount, value);
+        }
+
+        #endregion
+
+        #region Кол-во Бракованных труб
+
+        private int _FailTubesCount;
+
+        ///<summary>Кол-во Бракованных труб</summary>
+        public int FailTubesCount
+        {
+            get => _FailTubesCount;
+            set => Set(ref _FailTubesCount, value);
+        }
+
+        #endregion
+
         #endregion
 
 
@@ -89,6 +115,10 @@ namespace TMK.Screen.ViewModels
             tube.IsGoodQuality = model.IsGoodQualityTube;
             var newTube = _TubesRepository.Add(tube);
             TubeModelsCollection.Add(new TubeModel(newTube));
+            TubesCount = TubeModelsCollection.Count;
+            OnPropertyChanged(nameof(TubesCount));
+            FailTubesCount = TubeModelsCollection.Count(x => x.Quality != true);
+            OnPropertyChanged(nameof(FailTubesCount));
             OnPropertyChanged(nameof(TubeModelsCollection));
         }
 
@@ -139,6 +169,8 @@ namespace TMK.Screen.ViewModels
             OnPropertyChanged(nameof(TubeModelsCollection));
             SelectedItem = TubeModelsCollection.FirstOrDefault(x => x.Id == idTube);
             OnPropertyChanged(nameof(SelectedItem));
+            FailTubesCount = TubeModelsCollection.Count(x => x.Quality != true);
+            OnPropertyChanged(nameof(FailTubesCount));
         }
 
 
@@ -166,6 +198,10 @@ namespace TMK.Screen.ViewModels
             var idToRemove = SelectedItem.Id;
             _TubesRepository.Remove(idToRemove);
             TubeModelsCollection.Remove(SelectedItem);
+            TubesCount = TubeModelsCollection.Count;
+            FailTubesCount = TubeModelsCollection.Count(x => x.Quality != true);
+            OnPropertyChanged(nameof(FailTubesCount));
+            OnPropertyChanged(nameof(TubesCount));
             OnPropertyChanged(nameof(TubeModelsCollection));
         }
 
@@ -185,6 +221,8 @@ namespace TMK.Screen.ViewModels
             var tubes = _TubesRepository.Items.ToList().OrderBy(x => x.Id);
             TubeModelsCollection = new ObservableCollection<TubeModel>();
             TubeModelsCollection.AddRange(tubes.Select(x => new TubeModel(x)).ToList());
+            TubesCount = TubeModelsCollection.Count;
+            FailTubesCount = TubeModelsCollection.Count(x => x.Quality != true);
         }
     }
 }
